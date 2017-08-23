@@ -36,28 +36,27 @@ class Sidebar extends AbstractHelper
         if (count($this->items)==0)
             return ''; // Do nothing if there are no items.
 
-        $result = '<nav class="navbar navbar-default" role="navigation">';
-        $result .= '<div class="navbar-header">';
-        $result .= '<button type="button" class="navbar-toggle" ';
-        $result .= 'data-toggle="collapse" data-target=".navbar-ex1-collapse">';
-        $result .= '<span class="sr-only">Toggle navigation</span>';
-        $result .= '<span class="icon-bar"></span>';
-        $result .= '<span class="icon-bar"></span>';
-        $result .= '<span class="icon-bar"></span>';
-        $result .= '</button>';
-        $result .= '</div>';
 
-        $result .= '<div class="collapse navbar-collapse navbar-ex1-collapse">';
-        $result .= '<ul class="nav navbar-nav">';
+        $result = '<div class="col-md-3 left_col">';
+$result .= '<div class="left_col scroll-view">';
+$result .= '<div class="navbar nav_title" style="border: 0;">';
+$result .= '<a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Search Jobs</span></a>';
+$result .= '</div>';
+$result .= '<div class="clearfix"></div>';
+$result .= '<br>';
 
+//sidebar menu
+
+        $result .= '<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">';
+        $result .= '<div class="menu_section">';
+        $result .= '<ul class="nav side-menu">';
         // Render items
         foreach ($this->items as $item) {
             $result .= $this->renderItem($item);
         }
-
         $result .= '</ul>';
-        $result .= '</div>';
-        $result .= '</nav>';
+        $result .= '</div></div></div></div>';
+
 
         return $result;
     }
