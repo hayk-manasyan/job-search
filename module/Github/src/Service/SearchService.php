@@ -63,7 +63,20 @@ class SearchService implements SearchServiceInterface
         $fullTime = false
     )
     {
-        // TODO: Implement searchByCombinedParams() method.
+        $url = self::GITHUB_JOBS_URL . 'positions.json';
+
+        $params = [
+            'description' => $description,
+            'location' => $location,
+        ];
+
+        $response = HostService::makeApiCall($url, $params);
+
+        try {
+            return Json::decode($response, true);
+        } catch (\Exception $ex) {
+            return null;
+        }
     }
 
     /**

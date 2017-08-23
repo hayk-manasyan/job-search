@@ -4,6 +4,7 @@ namespace Application\Factory;
 
 
 use Application\Controller\IndexController;
+use Application\Form\SearchForm;
 use Github\Service\SearchService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
@@ -28,6 +29,8 @@ class IndexControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        return new IndexController($container->get(SearchService::class));
+        $searchForm = $container->get('FormElementManager')->get(SearchForm::class);
+
+        return new IndexController($container->get(SearchService::class), $searchForm);
     }
 }

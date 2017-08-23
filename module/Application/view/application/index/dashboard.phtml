@@ -84,23 +84,25 @@
 
 
 <?php
-$this->inlineScript()->captureStart();
+//echo $this->inlineScript()->captureStart();
 echo $this->headScript()
-//    ->appendFile($this->basePath('vendors/Chart.js/dist/Chart.min.js'))
-//    ->appendFile($this->basePath('vendors/gauge.js/dista/gauge.min.js'))
-//    ->appendFile($this->basePath('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js'))
-//    ->appendFile($this->basePath('vendors/iCheck/icheck.min.js'))
-//    ->appendFile($this->basePath('vendors/skycons/skycons.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.pie.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.time.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.stack.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.resize.js'))
-//    ->appendFile($this->basePath('vendors/flot.orderbars/js/jquery.flot.orderBars.js'))
-//    ->appendFile($this->basePath('ve ndors/flot-spline/js/jquery.flot.spline.min.js'))
-//    ->appendFile($this->basePath('vendors/flot.curvedlines/curvedLines.js'))
-//    ->appendFile($this->basePath('vendors/DateJS/build/date.js'))
+////    ->appendFile($this->basePath('vendors/Chart.js/dist/Chart.min.js'))
+////    ->appendFile($this->basePath('vendors/gauge.js/dista/gauge.min.js'))
+////    ->appendFile($this->basePath('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js'))
+////    ->appendFile($this->basePath('vendors/iCheck/icheck.min.js'))
+////    ->appendFile($this->basePath('vendors/skycons/skycons.js'))
+////    ->appendFile($this->basePath('vendors/Flot/jquery.flot.js'))
+////    ->appendFile($this->basePath('vendors/Flot/jquery.flot.pie.js'))
+////    ->appendFile($this->basePath('vendors/Flot/jquery.flot.time.js'))
+////    ->appendFile($this->basePath('vendors/Flot/jquery.flot.stack.js'))
+////    ->appendFile($this->basePath('vendors/Flot/jquery.flot.resize.js'))
+////    ->appendFile($this->basePath('vendors/flot.orderbars/js/jquery.flot.orderBars.js'))
+////    ->appendFile($this->basePath('ve ndors/flot-spline/js/jquery.flot.spline.min.js'))
+////    ->appendFile($this->basePath('vendors/flot.curvedlines/curvedLines.js'))
+////    ->appendFile($this->basePath('vendors/DateJS/build/date.js'))
     ->appendFile($this->basePath('build/js/custom.min.js'));
 
 
-$this->inlineScript()->captureEnd();
+//echo $this->headScript()->offsetSetScript(10, $this->basePath('build/js/custom.min.js'), 'text/javascript');
+
+//echo $this->inlineScript()->captureEnd();

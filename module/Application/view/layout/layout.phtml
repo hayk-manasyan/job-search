@@ -22,6 +22,15 @@
         ->prependStylesheet($this->basePath('vendors/bootstrap/dist/css/bootstrap.min.css'))
     ?>
 
+    <!-- Scripts -->
+    <?php echo $this->headScript()
+        ->prependFile($this->basePath('vendors/nprogress/nprogress.js'))
+        ->prependFile($this->basePath('vendors/fastclick/lib/fastclick.js'))
+        ->prependFile($this->basePath('vendors/bootstrap/dist/js/bootstrap.min.js'))
+        ->prependFile($this->basePath('vendors/jquery/dist/jquery.min.js'))
+
+    ?>
+
 </head>
 <body class="nav-md">
 
@@ -44,20 +53,6 @@
         <!-- /footer content -->
     </div>
 </div>
-
-
-<!-- Scripts -->
-<?php echo $this->headScript()
-    ->prependFile($this->basePath('vendors/nprogress/nprogress.js'))
-    ->prependFile($this->basePath('vendors/fastclick/lib/fastclick.js'))
-    ->prependFile($this->basePath('vendors/bootstrap/dist/js/bootstrap.min.js'))
-    ->prependFile($this->basePath('vendors/jquery/dist/jquery.min.js'))
-
-?>
-
-
-
-
 <?php echo $this->inlineScript() ?>
 </body>
 </html>

@@ -1,0 +1,99 @@
+<!-- bootstrap-wysiwyg -->
+<link href="<?php echo $this->basePath() . '/vendors/google-code-prettify/bin/prettify.min.css' ?>" rel="stylesheet">
+<!-- Select2 -->
+<link href="<?php echo $this->basePath() . '/vendors/select2/dist/css/select2.min.css'; ?>" rel="stylesheet">
+<!-- Switchery -->
+<link href="<?php echo $this->basePath() . '/vendors/switchery/dist/switchery.min.css'; ?>" rel="stylesheet">
+<!-- starrr -->
+<link href="<?php echo $this->basePath() . '/vendors/starrr/dist/starrr.css'; ?>" rel="stylesheet">
+<!-- bootstrap-daterangepicker -->
+<link href="<?php echo $this->basePath() . '/vendors/bootstrap-daterangepicker/daterangepicker.css'; ?>"
+      rel="stylesheet">
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url() . '/manual-search');
+$form->setAttribute('method', 'POST');
+$form->setAttribute('class', 'form-horizontal form-label-left input_mask col-md-offset-1');
+$form->prepare();
+?>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+
+                <div class="row">
+                    <?php
+                    echo $this->form()->openTag($form);
+                    ?>
+                    <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
+                        <?php echo $this->formElement($form->get('position')); ?>
+                        <span class="fa fa-tasks form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
+                        <?php echo $this->formElement($form->get('location')); ?>
+                        <span class="fa fa-location-arrow form-control-feedback left" aria-hidden="true"></span>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 col-xs-12 form-group ">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                    <?php
+                    echo $this->form()->closeTag();
+                    ?>
+                </div>
+            </div>
+            <?php if ($this->result) : ?>
+                <table id="datatable" class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Company</th>
+                        <th>Title</th>
+                        <th>Location</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->result as $k => $res) :
+
+                        ?>
+                        <tr>
+                            <th scope="row"><?php echo $res['company']; ?></th>
+                            <td><?php echo $res['title']; ?></td>
+                            <td><?php echo $res['location']; ?></td>
+                            <td><?php echo $res['type']; ?></td>
+                            <td>
+                                <a class="btn btn-info"
+                                   href="<?php echo $this->basePath() . '/application/detail/' . $res['id']; ?>">
+                                    More </a>
+                            </td>
+                        </tr>
+
+                    <?php endforeach;;
+                    ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<?php
+echo $this->headScript()
+    ->appendFile($this->basePath('vendors/datatables.net/js/jquery.dataTables.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/dataTables.buttons.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.flash.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.html5.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.print.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.print.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-responsive/js/dataTables.responsive.min.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js'))
+    ->appendFile($this->basePath('vendors/datatables.net-scroller/js/dataTables.scroller.min.js'))
+    ->appendFile($this->basePath('build/js/custom.min.js'));
+?>

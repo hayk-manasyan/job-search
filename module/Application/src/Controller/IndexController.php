@@ -7,8 +7,10 @@
 
 namespace Application\Controller;
 
+use Application\Form\SearchForm;
 use Application\View\Helper\Sidebar;
 use Github\Service\SearchService;
+use Zend\Form\Element\Search;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\View\View;
@@ -16,10 +18,12 @@ use Zend\View\View;
 class IndexController extends AbstractActionController
 {
     private $searchService;
+    private $searchForm;
 
-    public function __construct(SearchService $searchService)
+    public function __construct(SearchService $searchService, SearchForm $searchForm)
     {
         $this->searchService = $searchService;
+        $this->searchForm = $searchForm;
     }
 
     public function dashboardAction()
@@ -56,8 +60,41 @@ class IndexController extends AbstractActionController
 
         $viewModel = new ViewModel();
         $jobDetail  = $this->searchService->searchById($jobId);
-//        var_dump($jobDetail);
+
         $viewModel->job = $jobDetail;
+        return $viewModel;
+    }
+
+    public function manualSearchAction()
+    {
+        $viewModel = new ViewModel();
+        $viewModel->form = $this->searchForm;
+
+        $request = $this->getRequest();
+        if(!$request->isPost()) {
+            return $viewModel;
+        }
+
+
+        $postData  = $request->getPost();
+
+       $this->searchForm->setData($postData);
+       if(!$this->searchForm->isValid()) {
+           return $viewModel;
+       }
+
+       $formData = $this->searchForm->getData();
+       $position = $formData['position'];
+       $location = $formData['location'];
+
+        try {
+
+            $viewModel->result = $this->searchService->searchByCombinedParams($position, $location);
+        } catch (\Exception $ex) {
+            $viewModel->error = true;
+            return $viewModel;
+        }
+
         return $viewModel;
     }
 }

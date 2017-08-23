@@ -26,12 +26,21 @@ class HostService
 
 
         if(false == $isPost) {
+            if(is_array($params)) {
+
             $requestStr = '?';
             foreach ($params as $key => $param) {
+                if(empty($params)) {
+                    continue;
+                }
+
                 $requestStr .= $key . '=' . $param . '&';
             }
 
             $url .= $requestStr;
+
+            }
+
         } else {
             $request->setMethod(Request::METHOD_POST);
         }
@@ -47,8 +56,6 @@ class HostService
 
         } elseif($contentType == 'application/json') {
             $request->setContent(json_encode($params));
-        } else {
-            $request->setContent($params);
         }
 
         $response = $client->dispatch($request);
