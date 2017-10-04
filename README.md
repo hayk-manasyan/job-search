@@ -15,6 +15,7 @@ $ cd /path/to/install
 $ composer install
 ```
 Create the database named *jobs*, import the dump from data/db/jobs.sql
+
 Update the DB credentials in *config/autoload/global.php*
 
 Once installed, you fetch the data and insert it into DB runing:
