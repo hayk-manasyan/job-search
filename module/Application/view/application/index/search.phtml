@@ -2,30 +2,31 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <div class="x_content">
-                <table id="datatable" class="table table-hover">
+                <table id="list" class="table table-hover">
                     <thead>
                     <tr>
                         <th>Company</th>
                         <th>Title</th>
                         <th>Location</th>
                         <th>Type</th>
-                        <th> </th>
+                        <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($this->result as $k => $res) :
+                    <?php foreach ($this->result as $k => $value) :
 
                         ?>
-                        <tr>
-                            <th scope="row"><?php echo $res['company']; ?></th>
-                            <td><?php echo $res['title']; ?></td>
-                            <td><?php echo $res['location']; ?></td>
-                            <td><?php echo $res['type']; ?></td>
-                            <td>
-                                <a class="btn btn-info" href="<?php echo $this->basePath() . '/application/detail/' . $res['id']; ?>"> More </a>
-                            </td>
-                        </tr>
 
+                        <tr>
+                            <th scope="row"><?php echo $value->getCompany(); ?></th>
+                            <td><?php echo $value->getTitle(); ?></td>
+                            <td><?php echo $value->getLocation(); ?></td>
+                            <td><?php echo $value->getType(); ?></td>
+                            <td>
+                                <a class="btn btn-info" href="
+                            <?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>"> More </a>
+                                                    </td>
+                        </tr>
                     <?php endforeach;;
                     ?>
                     </tbody>
@@ -36,11 +37,7 @@
     </div>
 
 </div>
-
-
 <?php
-$this->inlineScript()->captureStart();
-
 echo $this->headScript()
     ->appendFile($this->basePath('vendors/datatables.net/js/jquery.dataTables.min.js'))
     ->appendFile($this->basePath('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'))
@@ -54,18 +51,16 @@ echo $this->headScript()
     ->appendFile($this->basePath('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js'))
     ->appendFile($this->basePath('vendors/datatables.net-responsive/js/dataTables.responsive.min.js'))
     ->appendFile($this->basePath('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-scroller/js/dataTables.scroller.min.js'))
-    ->appendFile($this->basePath('build/js/custom.min.js'));
+    ->appendFile($this->basePath('vendors/datatables.net-scroller/js/dataTables.scroller.min.js'));
 ?>
 <script>
-//    $(document).ready(function () {
-//        $('#datatable').dataTable();
-//    });
+    $(document).ready(function () {
+
+        $('#list').DataTable({
+            pageLength: 10,
+            paging: true,
+            searching: true,
+            order: [[0, "asc"]]
+        });
+    });
 </script>
-<?php
-
-$this->inlineScript()->captureEnd();
-
-?>
-
-

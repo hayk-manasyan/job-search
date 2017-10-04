@@ -56,17 +56,17 @@ $form->prepare();
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($this->result as $k => $res) :
+                    <?php foreach ($this->result as $k => $value) :
 
                         ?>
                         <tr>
-                            <th scope="row"><?php echo $res['company']; ?></th>
-                            <td><?php echo $res['title']; ?></td>
-                            <td><?php echo $res['location']; ?></td>
-                            <td><?php echo $res['type']; ?></td>
+                            <th scope="row"><?php echo $value->getCompany(); ?></th>
+                            <td><?php echo $value->getTitle(); ?></td>
+                            <td><?php echo $value->getLocation(); ?></td>
+                            <td><?php echo $value->getType(); ?></td>
                             <td>
                                 <a class="btn btn-info"
-                                   href="<?php echo $this->basePath() . '/application/detail/' . $res['id']; ?>">
+                                   href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
                                     More </a>
                             </td>
                         </tr>
@@ -95,5 +95,4 @@ echo $this->headScript()
     ->appendFile($this->basePath('vendors/datatables.net-responsive/js/dataTables.responsive.min.js'))
     ->appendFile($this->basePath('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js'))
     ->appendFile($this->basePath('vendors/datatables.net-scroller/js/dataTables.scroller.min.js'))
-    ->appendFile($this->basePath('build/js/custom.min.js'));
 ?>

@@ -7,11 +7,13 @@ $this->leftSideBar()->setItems([
         'label' => 'Home',
         'link' => $this->url('home'),
         'class' => 'active',
+        'icon' => '<i class="fa fa-home"></i> '
     ],
     [
         'id' => 'manula-search',
         'label' => 'Manual Search',
-        'link' => $this->url("application", ['action' => 'manual-search'])
+        'link' => $this->url("application", ['action' => 'manual-search']),
+        'icon' => '<i class="fa fa-edit"></i> '
     ],
 //    [
 //        'id' => 'support',

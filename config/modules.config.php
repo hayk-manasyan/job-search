@@ -11,6 +11,11 @@
  * This should be an array of module namespaces used in the application.
  */
 return [
+    'Zend\Hydrator',
+    'Zend\I18n',
+    'Zend\Paginator',
+    'Zend\InputFilter',
+    'Zend\Filter',
     'Zend\Session',
     'Zend\Mvc\Plugin\Prg',
     'Zend\Mvc\Plugin\Identity',
@@ -27,5 +32,8 @@ return [
 //    'ZendDeveloperTools',
     'Application',
     'Github',
-    'Utils'
+    'Utils',
+    'DoctrineModule',
+    'DoctrineORMModule',
+    'Jobs',
 ];

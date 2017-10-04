@@ -33,7 +33,15 @@
 
 </head>
 <body class="nav-md">
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-106372487-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments)};
+    gtag('js', new Date());
 
+    gtag('config', 'UA-106372487-1');
+</script>
 <div class="container body">
     <div class="main_container">
         <?php
@@ -41,18 +49,16 @@
         echo $this->render('partials/top-nav.phtml');
         ?>
 
-
         <div class="right_col" role="main">
             <?php echo $this->content ?>
         </div>
-        <!-- footer content -->
-        <footer>
 
-            <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
     </div>
 </div>
+<!-- Custom Theme Scripts -->
+<script src="<?php echo $this->basePath() . '/build/js/custom.min.js' ?>"></script>
+
+
 <?php echo $this->inlineScript() ?>
 </body>
 </html>

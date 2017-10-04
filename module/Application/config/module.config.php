@@ -12,6 +12,7 @@ use Application\View\Helper\Sidebar;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 
 return [
     'router' => [
@@ -33,16 +34,6 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'dashboard',
-                    ],
-                ],
-            ],
-            'forms' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route'    => '/forms[/:action]',
-                    'defaults' => [
-                        'controller' => Controller\FormsController::class,
-                        'action'     => 'index',
                     ],
                 ],
             ],

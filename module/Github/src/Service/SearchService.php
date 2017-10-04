@@ -9,11 +9,19 @@
 namespace Github\Service;
 
 
+use Jobs\Manager\JobsManager;
 use Utils\Service\HostService;
 use Zend\Json\Json;
 
 class SearchService implements SearchServiceInterface
 {
+    protected $jobManager;
+
+    public function __construct(JobsManager $jobsManager)
+    {
+        $this->jobManager = $jobsManager;
+    }
+
     const GITHUB_JOBS_URL = 'https://jobs.github.com/';
 
     /**
@@ -31,7 +39,12 @@ class SearchService implements SearchServiceInterface
             return null;
         }
 
-        return Json::decode($response, true);
+        $response = Json::decode($response, true);
+        foreach ($response as $res) {
+            $this->jobManager->saveNewJob($res, 'Github', $description);
+        }
+
+        return $response;
     }
 
     /**

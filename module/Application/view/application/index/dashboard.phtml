@@ -1,108 +1,59 @@
 <div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2> Last 5 PHP  JOBS </h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                        <li><a href="<?php echo $this->basePath() . '/application/search/php'; ?>" >Full List</a>
-                    </ul>
-                <div class="clearfix"></div>
+    <?php
+    if ( isset($this->jobs) && is_array($this->jobs) && count($this->jobs) ) :
+        $s = 0;
+        foreach ( $this->jobs as $key => $job ) :
+            $d = $s / 2;
+            if ( is_int($d) )  : ?>
+                <div class="row">
+                <?php
+            endif;
+            ?>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2> Last 5 <?php echo mb_strtoupper($key) ?> JOBS </h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a href="<?php echo $this->basePath() . '/application/search/' . urlencode($key); ?>">Full
+                                    List</a>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ( $job as $value ) :
+                                ?>
+                                <tr>
+                                    <th scope="row"><?php echo $value->getCompany(); ?></th>
+                                    <td><?php echo $value->getTitle(); ?></td>
+                                    <td><?php echo $value->getLocation(); ?></td>
+                                    <td><?php echo $value->getType(); ?></td>
+                                </tr>
+                            <?php endforeach;;
+                            ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
             </div>
-            <div class="x_content">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Title</th>
-                        <th>Location</th>
-                        <th>Type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($this->php as $k => $php) :
-                        if($k == 5) {
-                        break;
-                        }
-                        ?>
-                        <tr>
-                            <th scope="row"><?php echo $php['company']; ?></th>
-                            <td><?php echo $php['title']; ?></td>
-                            <td><?php echo $php['location']; ?></td>
-                            <td><?php echo $php['type']; ?></td>
-                        </tr>
+            <?php
+            if ( !is_int($d) ) : ?>
+                </div>
+                <?php
+            endif;
+            $s++;
+        endforeach;
 
-                    <?php endforeach;;
-                    ?>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2> Last 5 JAVA  JOBS </h2>
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a href="<?php echo $this->basePath() . '/application/search/java'; ?>" >Full List</a>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Title</th>
-                        <th>Location</th>
-                        <th>Type</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($this->java as $k => $java) :
-                        if($k == 5) {
-                            break;
-                        }
-                        ?>
-                        <tr>
-                            <th scope="row"><?php echo $java['company']; ?></th>
-                            <td><?php echo $java['title']; ?></td>
-                            <td><?php echo $java['location']; ?></td>
-                            <td><?php echo $java['type']; ?></td>
-                        </tr>
-
-                    <?php endforeach;;
-                    ?>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
+    endif;
+    ?>
 </div>
-
-
-<?php
-//echo $this->inlineScript()->captureStart();
-echo $this->headScript()
-//    ->appendFile($this->basePath('vendors/Chart.js/dist/Chart.min.js'))
-//    ->appendFile($this->basePath('vendors/gauge.js/dista/gauge.min.js'))
-//    ->appendFile($this->basePath('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js'))
-//    ->appendFile($this->basePath('vendors/iCheck/icheck.min.js'))
-//    ->appendFile($this->basePath('vendors/skycons/skycons.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.pie.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.time.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.stack.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.resize.js'))
-//    ->appendFile($this->basePath('vendors/flot.orderbars/js/jquery.flot.orderBars.js'))
-//    ->appendFile($this->basePath('vendors/flot-spline/js/jquery.flot.spline.min.js'))
-//    ->appendFile($this->basePath('vendors/flot.curvedlines/curvedLines.js'))
-//    ->appendFile($this->basePath('vendors/DateJS/build/date.js'))
-    ->appendFile($this->basePath('build/js/custom.js'));
-
-
-//echo $this->headScript()->offsetSetScript(10, $this->basePath('build/js/custom.min.js'), 'text/javascript');
-
-//echo $this->inlineScript()->captureEnd();

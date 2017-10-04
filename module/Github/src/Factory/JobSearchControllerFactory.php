@@ -1,19 +1,23 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: hayk
+ * Date: 9/17/17
+ * Time: 10:42 PM
+ */
 
-namespace Application\Factory;
+namespace Github\Factory;
 
 
-use Application\Controller\IndexController;
-use Application\Form\SearchForm;
+use Github\Controller\JobSearchController;
 use Github\Service\SearchService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Jobs\Manager\JobsManager;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class IndexControllerFactory implements FactoryInterface
+class JobSearchControllerFactory implements FactoryInterface
 {
 
     /**
@@ -30,8 +34,6 @@ class IndexControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $searchForm = $container->get('FormElementManager')->get(SearchForm::class);
-
-        return new IndexController($container->get(JobsManager::class), $searchForm);
+        return new JobSearchController($container->get(SearchService::class));
     }
 }

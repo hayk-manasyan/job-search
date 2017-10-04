@@ -10,6 +10,8 @@ namespace Application\Controller;
 use Application\Form\SearchForm;
 use Application\View\Helper\Sidebar;
 use Github\Service\SearchService;
+use Jobs\Entity\Jobs;
+use Jobs\Manager\JobsManager;
 use Zend\Form\Element\Search;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -17,12 +19,13 @@ use Zend\View\View;
 
 class IndexController extends AbstractActionController
 {
-    private $searchService;
+    private $jobsManager;
     private $searchForm;
+    private $jobService;
 
-    public function __construct(SearchService $searchService, SearchForm $searchForm)
+    public function __construct( JobsManager $jobsManager, SearchForm $searchForm )
     {
-        $this->searchService = $searchService;
+        $this->jobsManager = $jobsManager;
         $this->searchForm = $searchForm;
     }
 
@@ -31,35 +34,48 @@ class IndexController extends AbstractActionController
 
         $viewModel = new ViewModel();
 
-        $viewModel->php = $php = $this->searchService->searchByDescription('php');
-        $viewModel->java = $php = $this->searchService->searchByDescription('java');
+        $list = [
+            'php',
+            'java',
+            'javascript',
+            '.net',
+            'c#',
+            'nodejs'
+        ];
 
-        return $viewModel ;
+        $jobs = [];
+        foreach ( $list as $key => $item ) {
+            $jobs[ $item ] = $this->jobsManager->searchByDescription($item, 5);
+        }
+
+        $viewModel->jobs = $jobs;
+
+        return $viewModel;
     }
 
     public function searchAction()
     {
         $queryParam = $this->params('query', null);
-        if(is_null($queryParam)) {
+        if ( is_null($queryParam) ) {
             return $this->redirect()->toRoute('home');
 
         }
         $viewModel = new ViewModel();
 
-        $viewModel->result = $php =$this->searchService->searchByDescription($queryParam);
+        $viewModel->result = $php = $this->jobsManager->searchByDescription($queryParam);
 
-        return $viewModel ;
+        return $viewModel;
     }
 
     public function detailAction()
     {
         $jobId = $this->params('query', null);
-        if(is_null($jobId)) {
+        if ( is_null($jobId) ) {
             return $this->redirect()->toRoute('home');
         }
 
         $viewModel = new ViewModel();
-        $jobDetail  = $this->searchService->searchById($jobId);
+        $jobDetail = $this->jobsManager->searchById($jobId);
 
         $viewModel->job = $jobDetail;
         return $viewModel;
@@ -71,26 +87,26 @@ class IndexController extends AbstractActionController
         $viewModel->form = $this->searchForm;
 
         $request = $this->getRequest();
-        if(!$request->isPost()) {
+        if ( !$request->isPost() ) {
             return $viewModel;
         }
 
 
-        $postData  = $request->getPost();
+        $postData = $request->getPost();
 
-       $this->searchForm->setData($postData);
-       if(!$this->searchForm->isValid()) {
-           return $viewModel;
-       }
+        $this->searchForm->setData($postData);
+        if ( !$this->searchForm->isValid() ) {
+            return $viewModel;
+        }
 
-       $formData = $this->searchForm->getData();
-       $position = $formData['position'];
-       $location = $formData['location'];
+        $formData = $this->searchForm->getData();
+        $position = $formData[ 'position' ];
+        $location = $formData[ 'location' ];
 
         try {
 
-            $viewModel->result = $this->searchService->searchByCombinedParams($position, $location);
-        } catch (\Exception $ex) {
+            $viewModel->result = $this->jobsManager->searchByCombinedParams($position, $location);
+        } catch ( \Exception $ex ) {
             $viewModel->error = true;
             return $viewModel;
         }

@@ -1,11 +1,16 @@
 <?php
-if (!is_null($this->job)) :
-?>
-<div class="row">
-    <div class="">
+if (!is_null($job)) :
+    /**
+     * @var \Jobs\Entity\Jobs
+     */
+    $job = $this->job;
+
+    ?>
+    <div class="row">
+
         <div class="x_panel">
             <div class="x_title">
-               <h2></h2>
+                <h2></h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -13,60 +18,41 @@ if (!is_null($this->job)) :
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row hidden-md hidden-lg">
-                                <h1 class="text-center" >
-                                    <?php echo $this->job['title'] ?>
+                                <h1 class="text-center">
+                                    <?php echo $job->getTitle() ?>
                                 </h1>
                             </div>
 
                             <div class="pull-left col-md-4 col-xs-12 thumb-contenido" style="min-height: 400px;">
-                                <img class="center-block img-responsive" src="<?php echo $this->job['company_logo']; ?>" />
-                             </div>
+                                <img class="center-block img-responsive" src="<?php echo $job->getCompanyLogo(); ?>"/>
+                            </div>
                             <div class="">
-                                <h1  class="hidden-xs hidden-sm"><?php echo $this->job['title'] ?></h1>
+                                <h1 class="hidden-xs hidden-sm"><?php echo $job->getTitle(); ?></h1>
                                 <hr>
-                                <strong>Company: <?php echo $this->job['company']; ?></strong><br>
-                                <strong>Location: <?php echo $this->job['location']; ?></strong><br>
-                                <strong>Type: <?php echo $this->job['type']; ?></strong><br>
-                                <strong>Created: <?php echo $this->job['created_at']; ?></strong>
-                                <h3><?php echo $this->job['how_to_apply']; ?></h3>
+                                <strong>Company: <?php echo $job->getCompany(); ?></strong><br>
+                                <strong>Location: <?php echo $job->getLocation(); ?></strong><br>
+                                <strong>Type: <?php echo $job->getType(); ?></strong><br>
+                                <strong>Created: <?php echo $job->getCreatedAt(); ?></strong>
+                                <h3><?php echo $job->getHowToApply(); ?></h3>
                                 <hr>
-                                <?php echo $this->job['description']; ?>
+                                <?php echo $job->getDescription(); ?>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+    <?php
 
-</div>
-<?php
-
-    else : ?>
-    <div   class="row">
+else : ?>
+    <div class="row">
         <h2 class="text-center text-danger">No result for given Job ID.</h2>
     </div>
-        <?php endif;
-    ?>
-
-<?php
-$this->inlineScript()->captureStart();
-echo $this->headScript()
-//    ->appendFile($this->basePath('vendors/Chart.js/dist/Chart.min.js'))
-//    ->appendFile($this->basePath('vendors/gauge.js/dista/gauge.min.js'))
-//    ->appendFile($this->basePath('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js'))
-//    ->appendFile($this->basePath('vendors/iCheck/icheck.min.js'))
-//    ->appendFile($this->basePath('vendors/skycons/skycons.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.pie.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.time.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.stack.js'))
-//    ->appendFile($this->basePath('vendors/Flot/jquery.flot.resize.js'))
-//    ->appendFile($this->basePath('vendors/flot.orderbars/js/jquery.flot.orderBars.js'))
-//    ->appendFile($this->basePath('ve ndors/flot-spline/js/jquery.flot.spline.min.js'))
-//    ->appendFile($this->basePath('vendors/flot.curvedlines/curvedLines.js'))
-//    ->appendFile($this->basePath('vendors/DateJS/build/date.js'))
-    ->appendFile($this->basePath('build/js/custom.min.js'));
+<?php endif;
+?>
 
 
-$this->inlineScript()->captureEnd();
+

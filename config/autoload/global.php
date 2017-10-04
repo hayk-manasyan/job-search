@@ -11,28 +11,19 @@
  * file.
  */
 
-use Zend\Db\Adapter\AdapterAbstractServiceFactory;
-
+use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
 return [
-    'db' => [
-        'adapters' => [
-            'dbAdapter' => [
-                'driver' => 'Pdo_Mysql',
-                'dsn' => "mysqli:host=127.0.0.1;dbname=jobs",
-                'username' => 'root',
-                'password' => 'root',
-                'driver_options' => [
-                    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-                ],
-            ]
-        ],
-
-    ],
-    'service_manager' => [
-        'factories' => [
-        ],
-        'abstract_factories' => [
-            AdapterAbstractServiceFactory::class,
+    'doctrine' => [
+        'connection' => [
+            'orm_default' => [
+                'driverClass' => PDOMySqlDriver::class,
+                'params' => [
+                    'host'     => '127.0.0.1',
+                    'user'     => 'root',
+                    'password' => 'root',
+                    'dbname'   => 'jobs',
+                ]
+            ],
         ],
     ],
 ];
