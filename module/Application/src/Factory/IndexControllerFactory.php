@@ -5,10 +5,11 @@ namespace Application\Factory;
 
 use Application\Controller\IndexController;
 use Application\Form\SearchForm;
-use Github\Service\SearchService;
+use Github\Service\GithubSearchService;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Jobs\Manager\JobsManager;
+use Stack\Service\StackSearchService;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -32,6 +33,6 @@ class IndexControllerFactory implements FactoryInterface
     {
         $searchForm = $container->get('FormElementManager')->get(SearchForm::class);
 
-        return new IndexController($container->get(JobsManager::class), $searchForm);
+        return new IndexController($container->get(JobsManager::class), $searchForm, $container->get(StackSearchService::class));
     }
 }

@@ -8,20 +8,14 @@
 namespace Application\Controller;
 
 use Application\Form\SearchForm;
-use Application\View\Helper\Sidebar;
-use Github\Service\SearchService;
-use Jobs\Entity\Jobs;
 use Jobs\Manager\JobsManager;
-use Zend\Form\Element\Search;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Zend\View\View;
 
 class IndexController extends AbstractActionController
 {
     private $jobsManager;
     private $searchForm;
-    private $jobService;
 
     public function __construct( JobsManager $jobsManager, SearchForm $searchForm )
     {

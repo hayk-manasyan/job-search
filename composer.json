@@ -35,7 +35,8 @@
             "Application\\": "module/Application/src/",
             "Github\\" : "module/Github/src",
             "Utils\\" : "module/Utils/src",
-            "Jobs\\" : "module/Jobs/src"
+            "Jobs\\" : "module/Jobs/src",
+            "Stack\\" : "module/Stack/src"
         }
     },
     "autoload-dev": {
