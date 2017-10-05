@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2017 at 05:14 PM
+-- Generation Time: Oct 05, 2017 at 11:06 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `jobs` (
   `id` int(11) NOT NULL,
-  `external_id` varchar(150) COLLATE utf8_bin NOT NULL,
+  `external_id` varchar(150) COLLATE utf8_bin DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_bin NOT NULL,
   `location` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `type` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -55,6 +55,7 @@ CREATE TABLE `jobs` (
 --
 ALTER TABLE `jobs`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `external_id` (`external_id`),
   ADD KEY `company` (`company`),
   ADD KEY `id_external` (`external_id`),
   ADD KEY `job_source` (`job_source`),
