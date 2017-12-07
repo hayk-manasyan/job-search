@@ -43,39 +43,43 @@ $form->prepare();
                     echo $this->form()->closeTag();
                     ?>
                 </div>
+                <div class="row">
+                    <?php if ($this->result) : ?>
+                        <table id="datatable" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <!--                        <th>Company</th>-->
+                                <th>Title</th>
+                                <th>Location</th>
+                                <th>Type</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->result as $k => $value) :
+
+                                ?>
+                                <tr>
+                                    <!--                            <th scope="row">-->
+                                    <?php //echo $value->getCompany();
+                                    ?><!--</th>-->
+                                    <td><?php echo $value->getTitle(); ?></td>
+                                    <td><?php echo $value->getLocation(); ?></td>
+                                    <td><?php echo $value->getType(); ?></td>
+                                    <td>
+                                        <a class="btn btn-info"
+                                           href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
+                                            More </a>
+                                    </td>
+                                </tr>
+
+                            <?php endforeach;;
+                            ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </div>
             </div>
-            <?php if ($this->result) : ?>
-                <table id="datatable" class="table table-hover">
-                    <thead>
-                    <tr>
-<!--                        <th>Company</th>-->
-                        <th>Title</th>
-                        <th>Location</th>
-                        <th>Type</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($this->result as $k => $value) :
-
-                        ?>
-                        <tr>
-<!--                            <th scope="row">--><?php //echo $value->getCompany(); ?><!--</th>-->
-                            <td><?php echo $value->getTitle(); ?></td>
-                            <td><?php echo $value->getLocation(); ?></td>
-                            <td><?php echo $value->getType(); ?></td>
-                            <td>
-                                <a class="btn btn-info"
-                                   href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
-                                    More </a>
-                            </td>
-                        </tr>
-
-                    <?php endforeach;;
-                    ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
         </div>
     </div>
 </div>
