@@ -8,6 +8,7 @@ use function GuzzleHttp\default_user_agent;
 use JobApis\Jobs\Client\Providers\StackoverflowProvider;
 use JobApis\Jobs\Client\Queries\StackoverflowQuery;
 use Jobs\Manager\JobsManager;
+use Jobs\Mapper\SourceMapper;
 use Jobs\Service\SearchServiceInterface;
 use Utils\Service\HostService;
 use Zend\Json\Json;
@@ -44,7 +45,7 @@ class StackSearchService implements SearchServiceInterface
 
         foreach ($x['channel']['item'] as $res) {
             $formattedData = $this->generateFormattedArray($res);
-            $this->jobManager->saveNewJob($formattedData, 'StackOverflow', $description);
+            $this->jobManager->saveNewJob($formattedData, SourceMapper::TYPE_STACK_OVERFLOW, $description);
         }
 
         return true;
