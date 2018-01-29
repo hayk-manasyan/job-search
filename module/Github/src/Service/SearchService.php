@@ -10,6 +10,7 @@ namespace Github\Service;
 
 
 use Jobs\Manager\JobsManager;
+use Jobs\Mapper\SourceMapper;
 use Utils\Service\HostService;
 use Zend\Json\Json;
 
@@ -41,7 +42,7 @@ class SearchService implements SearchServiceInterface
 
         $response = Json::decode($response, true);
         foreach ($response as $res) {
-            $this->jobManager->saveNewJob($res, 'Github', $description);
+            $this->jobManager->saveNewJob($res, SourceMapper::TYPE_GITHUB, $description);
         }
 
         return $response;

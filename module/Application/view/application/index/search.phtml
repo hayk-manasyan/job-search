@@ -5,27 +5,25 @@
                 <table id="list" class="table table-hover">
                     <thead>
                     <tr>
-<!--                        <th>Company</th>-->
                         <th>Title</th>
                         <th>Location</th>
                         <th>Type</th>
+                        <th>Source Type</th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($this->result as $k => $value) :
-
+                    <?php foreach ( $this->result as $k => $value ) :
                         ?>
-
                         <tr>
-<!--                            <th scope="row">--><?php //echo $value->getCompany(); ?><!--</th>-->
                             <td><?php echo $value->getTitle(); ?></td>
                             <td><?php echo $value->getLocation(); ?></td>
                             <td><?php echo $value->getType(); ?></td>
+                            <td><?php echo \Jobs\Mapper\SourceMapper::getTitleByType( $value->getSource() ); ?></td>
                             <td>
                                 <a class="btn btn-info" href="
-                            <?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>"> More </a>
-                                                    </td>
+                                <?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>"> More </a>
+                            </td>
                         </tr>
                     <?php endforeach;;
                     ?>
@@ -39,28 +37,28 @@
 </div>
 <?php
 echo $this->headScript()
-    ->appendFile($this->basePath('vendors/datatables.net/js/jquery.dataTables.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/dataTables.buttons.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.flash.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.html5.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.print.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-buttons/js/buttons.print.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-responsive/js/dataTables.responsive.min.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js'))
-    ->appendFile($this->basePath('vendors/datatables.net-scroller/js/dataTables.scroller.min.js'));
+    ->appendFile( $this->basePath( 'vendors/datatables.net/js/jquery.dataTables.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-bs/js/dataTables.bootstrap.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-buttons/js/dataTables.buttons.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-buttons/js/buttons.flash.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-buttons/js/buttons.html5.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-buttons/js/buttons.print.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-buttons/js/buttons.print.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-keytable/js/dataTables.keyTable.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-responsive/js/dataTables.responsive.min.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js' ) )
+    ->appendFile( $this->basePath( 'vendors/datatables.net-scroller/js/dataTables.scroller.min.js' ) );
 ?>
 <script>
-    $(document).ready(function () {
+    $( document ).ready( function () {
 
-        $('#list').DataTable({
+        $( '#list' ).DataTable( {
             pageLength: 10,
             paging: true,
             searching: true,
-            order: [[0, "asc"]]
-        });
-    });
+            order: [ [ 0, "asc" ] ]
+        } );
+    } );
 </script>
