@@ -1,9 +1,4 @@
 <?php
-/**
- * @link      http://github.com/zendframework/ZendSkeletonApplication for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- */
 
 namespace Application\Controller;
 
@@ -25,9 +20,7 @@ class IndexController extends AbstractActionController
 
     public function dashboardAction()
     {
-
         $viewModel = new ViewModel();
-
         $list = [
             'php',
             'java',
@@ -38,38 +31,40 @@ class IndexController extends AbstractActionController
         ];
 
         $jobs = [];
+        $totalCount = [];
         foreach ( $list as $key => $item ) {
-            $jobs[ $item ] = $this->jobsManager->searchByDescription($item, 5);
+            $jobs[ $item ] = $this->jobsManager->searchByDescription( $item, 5 );
+            $totalCount[ $item ] = $this->jobsManager->searchByDescriptionCount( $item );
         }
 
         $viewModel->jobs = $jobs;
+        $viewModel->totalCount = $totalCount;
 
         return $viewModel;
     }
 
     public function searchAction()
     {
-        $queryParam = $this->params('query', null);
-        if ( is_null($queryParam) ) {
-            return $this->redirect()->toRoute('home');
+        $queryParam = $this->params( 'query', null );
+        if ( is_null( $queryParam ) ) {
+            return $this->redirect()->toRoute( 'home' );
 
         }
         $viewModel = new ViewModel();
-
-        $viewModel->result = $php = $this->jobsManager->searchByDescription($queryParam);
+        $viewModel->result = $php = $this->jobsManager->searchByDescription( $queryParam );
 
         return $viewModel;
     }
 
     public function detailAction()
     {
-        $jobId = $this->params('query', null);
-        if ( is_null($jobId) ) {
-            return $this->redirect()->toRoute('home');
+        $jobId = $this->params( 'query', null );
+        if ( is_null( $jobId ) ) {
+            return $this->redirect()->toRoute( 'home' );
         }
 
         $viewModel = new ViewModel();
-        $jobDetail = $this->jobsManager->searchById($jobId);
+        $jobDetail = $this->jobsManager->searchById( $jobId );
 
         $viewModel->job = $jobDetail;
         return $viewModel;
@@ -85,10 +80,8 @@ class IndexController extends AbstractActionController
             return $viewModel;
         }
 
-
         $postData = $request->getPost();
-
-        $this->searchForm->setData($postData);
+        $this->searchForm->setData( $postData );
         if ( !$this->searchForm->isValid() ) {
             return $viewModel;
         }
@@ -96,10 +89,8 @@ class IndexController extends AbstractActionController
         $formData = $this->searchForm->getData();
         $position = $formData[ 'position' ];
         $location = $formData[ 'location' ];
-
         try {
-
-            $viewModel->result = $this->jobsManager->searchByCombinedParams($position, $location);
+            $viewModel->result = $this->jobsManager->searchByCombinedParams( $position, $location );
         } catch ( \Exception $ex ) {
             $viewModel->error = true;
             return $viewModel;

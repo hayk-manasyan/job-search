@@ -26,6 +26,7 @@ class JobsManager
      * @param $source
      * @param $tag
      * @return boolean
+     * @throws \Exception
      */
     public function saveNewJob( $data, $source = null, $tag = null )
     {
@@ -58,7 +59,6 @@ class JobsManager
 
     public function searchByDescription( $description, $count = null )
     {
-
         $jobList = $this->entityManager->getRepository(Jobs::class)->findBy(
             [ 'tag' => $description ],
             [ 'id' => 'DESC' ], $count);
@@ -103,7 +103,14 @@ class JobsManager
         $job = $this->entityManager->getRepository(Jobs::class)->find($jobId);
 
         return $job;
+    }
 
+    public function searchByDescriptionCount( $description )
+    {
+        $jobList = $this->entityManager->getRepository(Jobs::class)->findBy(
+            [ 'tag' => $description ]);
+
+        return count($jobList);
     }
 
 }

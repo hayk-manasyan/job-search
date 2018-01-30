@@ -1,3 +1,14 @@
+<div class="row tile_count">
+<?php
+foreach ( $this->totalCount as $key => $count ) : ?>
+    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><?php echo mb_strtoupper($key) ?></span>
+        <div class="count"><?php echo $count; ?></div>
+    </div>
+<?php
+endforeach;
+?>
+</div>
 <div class="row">
     <?php
     if ( isset($this->jobs) && is_array($this->jobs) && count($this->jobs) ) :
