@@ -9,6 +9,7 @@
                         <th>Location</th>
                         <th>Type</th>
                         <th>Source Type</th>
+                        <th>Ceate Date</th>
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
@@ -20,6 +21,7 @@
                             <td><?php echo $value->getLocation(); ?></td>
                             <td><?php echo $value->getType(); ?></td>
                             <td><?php echo \Jobs\Mapper\SourceMapper::getTitleByType( $value->getSource() ); ?></td>
+                            <td><?php echo date('Y-m-d', strtotime($value->getCreatedAt())) ; ?></td>
                             <td>
                                 <a class="btn btn-info" href="
                                 <?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>"> More </a>
@@ -53,12 +55,11 @@ echo $this->headScript()
 ?>
 <script>
     $( document ).ready( function () {
-
         $( '#list' ).DataTable( {
             pageLength: 10,
             paging: true,
             searching: true,
-            order: [ [ 0, "asc" ] ]
+            order: [ [ 4, "desc" ] ]
         } );
     } );
 </script>

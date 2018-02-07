@@ -52,6 +52,7 @@ $form->prepare();
                                 <th>Location</th>
                                 <th>Type</th>
                                 <th>Source Type</th>
+                                <th>Create Date</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -64,6 +65,7 @@ $form->prepare();
                                     <td><?php echo $value->getLocation(); ?></td>
                                     <td><?php echo $value->getType(); ?></td>
                                     <td><?php echo \Jobs\Mapper\SourceMapper::getTitleByType( $value->getSource() ); ?></td>
+                                    <td><?php echo date('Y-m-d', strtotime($value->getCreatedAt())); ?></td>
                                     <td>
                                         <a class="btn btn-info"
                                            href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
