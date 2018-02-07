@@ -1,4 +1,6 @@
-# Jobs Serach Application Using Github Search API
+# Jobs Serach Application Using Github, StackOverflow Search APIs
+
+# Upcoming releases will have User Management and Linkedin Job API
 
 ## Introduction
 
