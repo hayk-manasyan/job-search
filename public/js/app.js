@@ -1,0 +1,4 @@
+
+var JobsStorage = {
+    Bookmarks :  "Bookmarks"
+};

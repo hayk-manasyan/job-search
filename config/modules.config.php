@@ -36,5 +36,6 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'Jobs',
-    'Stack'
+    'Stack',
+//    'User',
 ];
