@@ -98,4 +98,9 @@ class IndexController extends AbstractActionController
 
         return $viewModel;
     }
+
+    public function bookmarksAction()
+    {
+        return new ViewModel();
+    }
 }

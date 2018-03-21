@@ -37,5 +37,5 @@ return [
     'DoctrineORMModule',
     'Jobs',
     'Stack',
-    'User',
+//    'User',
 ];

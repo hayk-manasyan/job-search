@@ -14,7 +14,7 @@ if (!is_null($job)) :
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="well">
+                <div class="">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row hidden-md hidden-lg">
@@ -23,20 +23,31 @@ if (!is_null($job)) :
                                 </h1>
                             </div>
 
-                            <div class="pull-left col-md-4 col-xs-12 thumb-contenido" style="min-height: 400px;">
+
+                            <div class="pull-left col-md-4 col-xs-12 thumb-contenido" style="min-height: 350px;">
                                 <img class="center-block img-responsive" src="<?php echo $job->getCompanyLogo(); ?>"/>
                             </div>
                             <div class="">
                                 <h1 class="hidden-xs hidden-sm"><?php echo $job->getTitle(); ?></h1>
                                 <hr>
+                                <div class="bookmark cursor-pointer" data-title="<?php echo $job->getTitle(); ?>"
+                                     data-location="<?php echo $job->getLocation(); ?>" data-id="<?php echo $job->getId(); ?>"
+                                onclick="Bookmark.AddToBookmarks();">
+                                    <strong style="font-size: 15px;">Add To Bookmarks </strong><i class="fa fa-2x fa-star" aria-hidden="true"
+                                                                        title="Add to bookmarks"></i>
+                                </div>
                                 <strong>Company: <?php echo $job->getCompany(); ?></strong><br>
                                 <strong>Location: <?php echo $job->getLocation(); ?></strong><br>
                                 <strong>Type: <?php echo $job->getType(); ?></strong><br>
                                 <strong>Created: <?php echo $job->getCreatedAt(); ?></strong>
                                 <h3><?php echo $job->getHowToApply(); ?></h3>
-                                <hr>
-                                <?php echo $job->getDescription(); ?>
 
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <hr>
+                                    <?php echo $job->getDescription(); ?>
+                                </div>
                             </div>
                         </div>
                     </div>
