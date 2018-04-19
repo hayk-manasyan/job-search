@@ -4,7 +4,7 @@ if (!is_null($job)) :
      * @var \Jobs\Entity\Jobs
      */
     $job = $this->job;
-
+    echo $this->headTitle($job->getTitle());
     ?>
     <div class="row">
 
