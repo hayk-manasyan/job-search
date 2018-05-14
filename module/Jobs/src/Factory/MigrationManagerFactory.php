@@ -1,24 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hayk
- * Date: 9/17/17
- * Time: 10:42 PM
- */
 
 namespace Jobs\Factory;
 
-use Github\Service\GithubSearchService;
+
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Jobs\Controller\JobSearchController;
+use Jobs\Manager\JobsManager;
 use Jobs\Manager\MigrationManager;
-use Stack\Service\StackSearchService;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class JobSearchControllerFactory implements FactoryInterface
+class MigrationManagerFactory implements FactoryInterface
 {
 
     /**
@@ -35,10 +28,10 @@ class JobSearchControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $githubSearch = $container->get(GithubSearchService::class);
-        $stackSearch = $container->get(StackSearchService::class);
-        $migrationManager  = $container->get(MigrationManager::class);
+        // Get Doctrine entity manager
+        $mysqlEntityManager = $container->get('doctrine.entitymanager.orm_default');
+        $pgsqlEntityManager = $container->get('doctrine.entitymanager.orm_pg');
 
-        return new JobSearchController($githubSearch, $stackSearch, $migrationManager);
+        return new MigrationManager($mysqlEntityManager, $pgsqlEntityManager);
     }
 }

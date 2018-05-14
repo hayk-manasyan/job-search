@@ -1,13 +1,15 @@
 <?php
 
-namespace  Jobs;
+namespace Jobs;
 
 use Jobs\Controller\JobSearchController;
 use Jobs\Factory\JobManagerFactory;
+use Jobs\Factory\MigrationManagerFactory;
 use Jobs\Manager\JobsManager;
 use Jobs\Factory\JobSearchControllerFactory;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Jobs\Manager\MigrationManager;
 
 return [
     'controllers' => [
@@ -23,6 +25,7 @@ return [
              */
 
             JobsManager::class => JobManagerFactory::class,
+            MigrationManager::class => MigrationManagerFactory::class,
         ],
     ],
     'doctrine' => [
@@ -30,7 +33,7 @@ return [
             __NAMESPACE__ . '_driver' => [
                 'class' => AnnotationDriver::class,
                 'cache' => 'array',
-                'paths' => [__DIR__ . '/../src/Entity']
+                'paths' => [ __DIR__ . '/../src/Entity' ]
             ],
             'orm_default' => [
                 'drivers' => [
@@ -50,6 +53,16 @@ return [
                         'defaults' => [
                             'controller' => JobSearchController::class,
                             'action' => 'index',
+                        ],
+                    ],
+                ],
+                'migration' => [
+                    'options' => [
+//                        'route'    => 'show [all|disabled|deleted]:mode users [--verbose|-v]',
+                        'route' => 'migrate [--verbose|-v]',
+                        'defaults' => [
+                            'controller' => JobSearchController::class,
+                            'action' => 'migrate',
                         ],
                     ],
                 ],

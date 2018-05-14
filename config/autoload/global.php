@@ -16,6 +16,8 @@ use Zend\Session\Storage\SessionArrayStorage;
 use Zend\Session\Validator\RemoteAddr;
 use Zend\Session\Validator\HttpUserAgent;
 
+use Doctrine\DBAL\Driver\PDOPgSql\Driver as PDOPgSqlDriver;
+
 return [
     'doctrine' => [
         'connection' => [
@@ -28,6 +30,27 @@ return [
                     'dbname'   => 'jobs',
                 ]
             ],
+            'orm_pg' => [
+                'driverClass' => PDOPgSqlDriver::class,
+                'params' => [
+                    'host' => '127.0.0.1',
+                    'user' => 'postgres',
+                    'password' => 'postgres',
+                    'dbname' => 'jobs',
+                    'port' => '5432'
+                ]
+            ],
+        ],
+    ],
+    // Entity Manager instantiation settings
+    'entitymanager' => [
+        'orm_default' => [
+            'connection'    => 'orm_default',
+//                'configuration' => 'orm_default',
+        ],
+        'orm_pg' => [
+            'connection'    => 'orm_pg',
+//                'configuration' => 'orm_pg',
         ],
     ],
     'migrations_configuration' => [
