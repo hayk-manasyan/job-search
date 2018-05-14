@@ -28,7 +28,7 @@ class JobManagerFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         // Get Doctrine entity manager
-        $entityManager = $container->get('doctrine.entitymanager.orm_default');
+        $entityManager = $container->get('doctrine.entitymanager.orm_pg');
 
         return new JobsManager($entityManager);
     }
