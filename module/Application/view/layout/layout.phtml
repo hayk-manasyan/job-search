@@ -3,9 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle('Awesome Jobs From Worldwide')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?php echo $this->headTitle('Awesome Jobs From Worldwide')->setSeparator(' - ')->setAutoEscape(false) ?>
 
-    <?= $this->headMeta()
+    <?php echo $this->headMeta()
         ->appendName('viewport', 'width=device-width, initial-scale=1.0')
         ->appendName('description', 'Awesome jobs from worldwide! Find jobs in one place from Github Jobs, StackOverflow jobs. This is open source project.')
         ->appendName('keywords', 'AWESOME JOBS, JOB CRAWLER, OPEN SOURCE, PHP, JAVA')
@@ -14,7 +14,7 @@
     ?>
 
     <!-- Le styles -->
-    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+    <?php echo $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
         ->prependStylesheet($this->basePath('css/style.css'))
         ->prependStylesheet($this->basePath('build/css/custom.min.css'))
         ->prependStylesheet($this->basePath('vendors/bootstrap-daterangepicker/daterangepicker.css'))

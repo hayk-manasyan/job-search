@@ -81,8 +81,8 @@ class JobsManager
         $result = $queryBuilder->select();
 
         if ( trim($description) !== '' && !is_null($description) ) {
-            $result->where('LOWER(j.tag) = :tag')
-                ->setParameter('tag', mb_strtolower($description));
+            $result->where('j.tag = :tag')
+                ->setParameter('tag', $description);
             $x = true;
         }
         if ( trim($location) !== '' && !is_null($location) ) {
@@ -107,10 +107,15 @@ class JobsManager
 
     public function searchByDescriptionCount( $description )
     {
-        $jobList = $this->entityManager->getRepository(Jobs::class)->findBy(
-            [ 'tag' => $description ]);
+        $qb = $this->entityManager->getRepository(Jobs::class)->createQueryBuilder('j');
+        $count =  $qb
+            ->select('count(j.id)')
+             ->where('j.tag = :tag')
+                 ->setParameter('tag', $description)
+            ->getQuery()
+            ->getSingleScalarResult();
 
-        return count($jobList);
+        return $count;
     }
 
 }
