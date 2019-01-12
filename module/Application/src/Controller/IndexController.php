@@ -103,4 +103,9 @@ class IndexController extends AbstractActionController
     {
         return new ViewModel();
     }
+
+    public function privacyAction()
+    {
+        return new ViewModel();
+    }
 }
