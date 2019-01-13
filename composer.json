@@ -32,7 +32,12 @@
         "doctrine/migrations": "^1.6",
         "zendframework/zend-math": "^3.0",
         "zendframework/zend-crypt": "^3.1",
-        "zendframework/zend-captcha": "^2.6"
+        "zendframework/zend-captcha": "^2.6",
+        "doctrine/annotations": "^1.6",
+        "doctrine/dbal": "^2.6",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/instantiator": "^1.1",
+        "doctrine/orm": "2.6.1"
     },
     "autoload": {
         "psr-4": {

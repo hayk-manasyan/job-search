@@ -62,4 +62,9 @@ echo $this->headScript()
             order: [ [ 4, "desc" ] ]
         } );
     } );
+
+    let searchParam = "<?php echo $this->searchParam; ?>";
+    if(searchParam) {
+        $("#top-search").val(searchParam);
+    }
 </script>

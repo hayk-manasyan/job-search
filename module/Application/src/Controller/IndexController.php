@@ -33,8 +33,8 @@ class IndexController extends AbstractActionController
         $jobs = [];
         $totalCount = [];
         foreach ( $list as $key => $item ) {
-            $jobs[ $item ] = $this->jobsManager->searchByDescription( $item, 5 );
-            $totalCount[ $item ] = $this->jobsManager->searchByDescriptionCount( $item );
+            $jobs[ $item ] = $this->jobsManager->searchByTagName( $item, 5 );
+            $totalCount[ $item ] = $this->jobsManager->searchByTagsCount( $item );
         }
 
         $viewModel->jobs = $jobs;
@@ -48,10 +48,14 @@ class IndexController extends AbstractActionController
         $queryParam = $this->params( 'query', null );
         if ( is_null( $queryParam ) ) {
             return $this->redirect()->toRoute( 'home' );
-
         }
         $viewModel = new ViewModel();
-        $viewModel->result = $php = $this->jobsManager->searchByDescription( $queryParam );
+        $viewModel->result = [];
+        try {
+            $viewModel->result = $php = $this->jobsManager->searchByTagName( $queryParam );
+        }catch (\Exception $ex) {
+            var_dump($ex->getMessage()); die;
+        }
 
         return $viewModel;
     }
@@ -107,5 +111,24 @@ class IndexController extends AbstractActionController
     public function privacyAction()
     {
         return new ViewModel();
+    }
+
+    public function textSearchAction()
+    {
+        $queryParam = $this->params( 'query', null );
+        if ( is_null( $queryParam ) ) {
+            return $this->redirect()->toRoute( 'home' );
+        }
+        $viewModel = new ViewModel();
+        $viewModel->setTemplate('application/index/search');
+        $viewModel->result = [];
+        $viewModel->searchParam = $queryParam;
+        try {
+            $viewModel->result = $this->jobsManager->searchByDescription( $queryParam );
+        }catch (\Exception $ex) {
+            $viewModel->error = true;
+        }
+
+        return $viewModel;
     }
 }

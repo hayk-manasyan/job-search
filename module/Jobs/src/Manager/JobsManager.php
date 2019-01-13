@@ -2,9 +2,9 @@
 
 namespace Jobs\Manager;
 
-
 use Jobs\Entity\Jobs;
 use Doctrine\ORM\EntityManager;
+use Utils\Service\ObjectService;
 use Zend\Hydrator\ClassMethods;
 
 class JobsManager
@@ -57,7 +57,7 @@ class JobsManager
         return true;
     }
 
-    public function searchByDescription( $description, $count = null )
+    public function searchByTagName($description, $count = null )
     {
         $jobList = $this->entityManager->getRepository(Jobs::class)->findBy(
             [ 'tag' => $description ],
@@ -105,7 +105,7 @@ class JobsManager
         return $job;
     }
 
-    public function searchByDescriptionCount( $description )
+    public function searchByTagsCount($description )
     {
         $qb = $this->entityManager->getRepository(Jobs::class)->createQueryBuilder('j');
         $count =  $qb
@@ -116,6 +116,33 @@ class JobsManager
             ->getSingleScalarResult();
 
         return $count;
+    }
+
+    /**
+     * @param $description
+     * @return array
+     * @throws \Doctrine\DBAL\DBALException|\Exception
+     *
+     */
+    public function searchByDescription($description)
+    {
+        $db = $this->entityManager->getConnection();
+        $sql = "SELECT * FROM jobs j 
+        where to_tsvector('english', description) @@ plainto_tsquery('english', :description)
+        ORDER BY created_at desc ";
+
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam("description", $description);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+        $converted = [];
+        foreach ($result as $res) {
+            $res['source'] = $res['job_source'];
+            $converted[] = ObjectService::convertArrayToObj($res, new Jobs());
+        }
+
+        return $converted;
     }
 
 }

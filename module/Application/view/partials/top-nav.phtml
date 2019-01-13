@@ -24,6 +24,28 @@
                     </a>
                 </li>
             </ul>
+            <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="top-search" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="fullSearch">Go!</button>
+                    </span>
+                </div>
+            </div>
         </nav>
     </div>
 </div>
+
+<script type="application/javascript">
+    $(document).ready(function () {
+        $("#fullSearch").on("click", function () {
+            let searchParam = $("#top-search").val();
+            if(searchParam.length) {
+                window.location = "/application/text-search/" + searchParam;
+            }
+
+
+        });
+
+    });
+</script>
