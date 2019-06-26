@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/zold-io/zold.svg?branch=master)](https://travis-ci.org/zold-io/zold)
+
 # Jobs Serach Application Using Github, StackOverflow Search APIs
 
 # Upcoming releases will have User Management and Linkedin Job API
