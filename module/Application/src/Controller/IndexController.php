@@ -54,7 +54,7 @@ class IndexController extends AbstractActionController
         try {
             $viewModel->result = $php = $this->jobsManager->searchByTagName( $queryParam );
         }catch (\Exception $ex) {
-            var_dump($ex->getMessage()); die;
+            return $this->redirect()->toRoute( 'home' );
         }
 
         return $viewModel;
@@ -68,9 +68,14 @@ class IndexController extends AbstractActionController
         }
 
         $viewModel = new ViewModel();
-        $jobDetail = $this->jobsManager->searchById( $jobId );
-
-        $viewModel->job = $jobDetail;
+        try {
+            $jobDetail = $this->jobsManager->searchById( $jobId );
+            $relatedJobs = $this->jobsManager->getRelatedJobs($jobDetail->getTitle(), $jobDetail->getTag());
+            $viewModel->job = $jobDetail;
+            $viewModel->relatedJobs = $relatedJobs;
+        } catch (\Exception $ex) {
+            return $this->redirect()->toRoute( 'home' );
+        }
         return $viewModel;
     }
 

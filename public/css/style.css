@@ -9,3 +9,7 @@
 .top_search {
     margin-top: 15px;
 }
+
+.similar-jobs {
+    border-left: 1px solid #eee;
+}

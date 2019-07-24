@@ -39,6 +39,14 @@ class JobsManager
 
         $hydrator = new ClassMethods();
         $job = $hydrator->hydrate($data, new Jobs());
+        $patterns = [
+            '<br>',
+            '<br >',
+            '<br/>',
+            '<br />',
+        ];
+        $description = str_replace($patterns, '', $job->getDescription());
+        $job->setDescription($description);
 
         $job->setCreatedAt(date('Y-m-d H:i:s'));
         $job->setCreatedAtExternal(date('Y-m-d H:i:s', strtotime($data[ 'created_at' ])));
@@ -132,7 +140,41 @@ class JobsManager
         ORDER BY created_at desc ";
 
         $stmt = $db->prepare($sql);
+        $description .= ':*';
         $stmt->bindParam("description", $description);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll();
+        $converted = [];
+        foreach ($result as $res) {
+            $res['source'] = $res['job_source'];
+            $converted[] = ObjectService::convertArrayToObj($res, new Jobs());
+        }
+
+        return $converted;
+    }
+
+    /**
+     * @param $title
+     * @return array
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function getRelatedJobs($title, $tag)
+    {
+        $db = $this->entityManager->getConnection();
+        $sql = "SELECT * FROM jobs j 
+        where to_tsvector('english', description) @@ plainto_tsquery('english', :description)
+        AND tag = :tag
+        ORDER BY created_at desc
+        LIMIT 15;";
+
+
+        $stmt = $db->prepare($sql);
+        $temp = explode(' ', $title);
+        $searchTerm = $temp[0] . ':* ' . $temp[1] . ':*';
+
+        $stmt->bindParam("description", $searchTerm);
+        $stmt->bindParam("tag", $tag);
         $stmt->execute();
 
         $result = $stmt->fetchAll();

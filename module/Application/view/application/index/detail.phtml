@@ -1,9 +1,9 @@
 <?php
+/** @var \Jobs\Entity\Jobs $job */
+$job = $this->job;
+/** @var \Jobs\Entity\Jobs[] $job */
+$relatedJobs = $this->relatedJobs;
 if (!is_null($job)) :
-    /**
-     * @var \Jobs\Entity\Jobs
-     */
-    $job = $this->job;
     echo $this->headTitle($job->getTitle());
     ?>
     <div class="row">
@@ -16,7 +16,7 @@ if (!is_null($job)) :
             <div class="x_content">
                 <div class="">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="row hidden-md hidden-lg">
                                 <h1 class="text-center">
                                     <?php echo $job->getTitle() ?>
@@ -49,6 +49,18 @@ if (!is_null($job)) :
                                     <?php echo $job->getDescription(); ?>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-3 similar-jobs">
+                            <h1 class="text-center text-info">Similar Jobs</h1>
+                            <hr>
+                        <?php foreach ($relatedJobs as $value): ?>
+                           <h4>
+                               <a href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
+                                <?php echo $value->getTitle(); ?>
+                            </a>
+                           </h4>
+                        <hr>
+                        <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
