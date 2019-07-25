@@ -16,31 +16,37 @@ if (!is_null($job)) :
             <div class="x_content">
                 <div class="">
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-9 col-xs-12">
                             <div class="row hidden-md hidden-lg">
                                 <h1 class="text-center">
                                     <?php echo $job->getTitle() ?>
                                 </h1>
                             </div>
-
                             <div class="pull-left col-md-4 col-xs-12 thumb-contenido" style="min-height: 350px;">
-
                                 <img class="center-block img-responsive" src="<?php echo $job->getCompanyLogo(); ?>"/>
                             </div>
-                            <div class="">
+                            <div class="col-xs-12 col-md-5">
                                 <h1 class="hidden-xs hidden-sm"><?php echo $job->getTitle(); ?></h1>
                                 <hr>
                                 <div class="bookmark cursor-pointer" data-title="<?php echo $job->getTitle(); ?>"
-                                     data-location="<?php echo $job->getLocation(); ?>" data-id="<?php echo $job->getId(); ?>"
-                                onclick="Bookmark.AddToBookmarks();">
-                                    <strong style="font-size: 15px;">Add To Bookmarks </strong><i class="fa fa-2x fa-star" aria-hidden="true"
-                                                                        title="Add to bookmarks"></i>
+                                     data-location="<?php echo $job->getLocation(); ?>"
+                                     data-id="<?php echo $job->getId(); ?>"
+                                     onclick="Bookmark.AddToBookmarks();">
+                                    <strong style="font-size: 15px;">Add To Bookmarks </strong><i
+                                            class="fa fa-2x fa-star" aria-hidden="true"
+                                            title="Add to bookmarks"></i>
                                 </div>
                                 <strong>Company: <?php echo $job->getCompany(); ?></strong><br>
                                 <strong>Location: <?php echo $job->getLocation(); ?></strong><br>
                                 <strong>Type: <?php echo $job->getType(); ?></strong><br>
                                 <strong>Created: <?php echo $job->getCreatedAt(); ?></strong>
-                                <h3><?php echo $job->getHowToApply(); ?></h3>
+                                <h3><?php
+                                    if ($job->getSource() === \Jobs\Mapper\SourceMapper::TYPE_STACK_OVERFLOW) { ?>
+                                        <a href="<?php echo $job->getHowToApply(); ?>">Apply Here</a>
+                                    <?php } else {
+                                        echo $job->getHowToApply();
+                                    }
+                                    ?></h3>
 
                             </div>
                             <div class="row">
@@ -53,14 +59,14 @@ if (!is_null($job)) :
                         <div class="col-md-3 similar-jobs">
                             <h1 class="text-center text-info">Similar Jobs</h1>
                             <hr>
-                        <?php foreach ($relatedJobs as $value): ?>
-                           <h4>
-                               <a href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
-                                <?php echo $value->getTitle(); ?>
-                            </a>
-                           </h4>
-                        <hr>
-                        <?php endforeach; ?>
+                            <?php foreach ($relatedJobs as $value): ?>
+                                <h4>
+                                    <a href="<?php echo $this->basePath() . '/application/detail/' . $value->getId(); ?>">
+                                        <?php echo $value->getTitle(); ?>
+                                    </a>
+                                </h4>
+                                <hr>
+                            <?php endforeach; ?>
                         </div>
                     </div>
                 </div>
@@ -68,7 +74,7 @@ if (!is_null($job)) :
         </div>
 
     </div>
-    <?php
+<?php
 
 else : ?>
     <div class="row">
