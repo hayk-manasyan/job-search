@@ -70,6 +70,9 @@ class IndexController extends AbstractActionController
         $viewModel = new ViewModel();
         try {
             $jobDetail = $this->jobsManager->searchById( $jobId );
+            if(is_null($jobDetail)) {
+                return $this->redirect()->toRoute( 'home' );
+            }
             $relatedJobs = $this->jobsManager->getRelatedJobs($jobDetail->getTitle(), $jobDetail->getTag());
             $viewModel->job = $jobDetail;
             $viewModel->relatedJobs = $relatedJobs;
