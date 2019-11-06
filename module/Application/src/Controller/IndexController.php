@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Application\Form\SearchForm;
 use Jobs\Manager\JobsManager;
+use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -82,7 +83,7 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
 
-    public function manualSearchAction()
+    public function manualSearchAction(): ViewModel
     {
         $viewModel = new ViewModel();
         $viewModel->form = $this->searchForm;
@@ -111,19 +112,23 @@ class IndexController extends AbstractActionController
         return $viewModel;
     }
 
-    public function bookmarksAction()
+    public function bookmarksAction(): ViewModel
     {
         return new ViewModel();
     }
 
-    public function privacyAction()
+    public function privacyAction(): ViewModel
     {
         return new ViewModel();
     }
 
+    /**
+     * @return Response|ViewModel
+     */
     public function textSearchAction()
     {
         $queryParam = $this->params( 'query', null );
+        $queryParam = trim($queryParam);
         if ( is_null( $queryParam ) ) {
             return $this->redirect()->toRoute( 'home' );
         }
