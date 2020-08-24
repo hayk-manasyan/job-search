@@ -56,11 +56,16 @@ class JobsManager
         $job->setId(null);
         $job->setExternalId($data[ 'id' ]);
 
-        // Add the entity to entity manager.
-        $this->entityManager->persist($job);
+        try {
+            // Add the entity to entity manager.
+            $this->entityManager->persist($job);
 
-        // Apply changes to database.
-        $this->entityManager->flush();
+            // Apply changes to database.
+            $this->entityManager->flush();
+        } catch (\Exception $ex) {
+
+        }
+
 
         return true;
     }
