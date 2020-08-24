@@ -32,10 +32,6 @@ class StackSearchService implements SearchServiceInterface
      */
     public function searchByDescription( $description )
     {
-//        $xml = simplexml_load_file(self::STACK_JOBS_URL . '?q=' . $description );
-
-
-
         $Json = json_encode(simplexml_load_file(self::STACK_JOBS_URL . '?q=' . $description, "SimpleXMLElement", LIBXML_NOCDATA));
         $x = json_decode($Json, true);
 
@@ -64,7 +60,7 @@ class StackSearchService implements SearchServiceInterface
             'description' => $data['description'],
             'company_logo' => null,
             'location' => isset($data['location']) ? $data['location'] : null,
-            'url' => $data['link'],
+            'url' => substr($data['link'], 0, 255),
             'created_at' => $data['pubDate'],
             'type' => 'Full Time',
             'how_to_apply' => $data['link'],
